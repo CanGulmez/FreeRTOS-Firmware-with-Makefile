@@ -1,0 +1,106 @@
+/**
+ ******************************************************************************
+ * @file 	main.h
+ * @author 	Ahmet Can GULMEZ
+ * @brief 	Main header file.
+ * 
+ ******************************************************************************
+ * @attention
+ * 
+ * Copyright (c) 2025 Ahmet Can GULMEZ.
+ * All rights reserved.
+ * 
+ * This software is licensed under the MIT License.
+ * 
+ *****************************************************************************
+ */
+
+/* Libraries */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <string.h>
+#include <math.h>
+#include <ctype.h>
+
+#include "../lib/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+
+#include "../lib/FreeRTOS/include/FreeRTOS.h"
+#include "../lib/FreeRTOS/include/task.h"
+#include "../lib/FreeRTOS/include/queue.h"
+#include "../lib/FreeRTOS/include/timers.h"
+#include "../lib/FreeRTOS/include/semphr.h"
+
+/* GLobal definitions */
+
+#define BUF_SIZE				128
+
+#define FILE					__FILE__
+#define LINE					__LINE__
+
+#define STATUS(status) 		((status == HAL_ERROR) 		? "ERROR" 	: 	\
+									 (status == HAL_BUSY) 		? "BUSY"		:	\
+									 (status == HAL_TIMEOUT) 	? "TIMEOUT" :	\
+													 					  "UNDEFINED")
+extern RCC_OscInitTypeDef iosc;
+extern RCC_ClkInitTypeDef iclk;
+extern GPIO_InitTypeDef igpio;
+extern UART_HandleTypeDef debugPort;
+
+extern QueueHandle_t queue;
+extern TimerHandle_t timer;
+
+/**
+ * Transmit the logs from MCU to PC over serial UAR line.
+ */
+#define printLog(format, ...)																\
+do {																								\
+	char buffer[BUF_SIZE];																	\
+																									\
+	snprintf(buffer, BUF_SIZE, format "\r\n", ##__VA_ARGS__);					\
+	HAL_UART_Transmit(&debugPort, (uint8_t*) buffer, strlen(buffer),			\
+							HAL_MAX_DELAY);													\
+} while (0)
+
+/**
+ * Transmit the error from MCU to PC over serial UAR line.
+ */
+#define printError(status, format, ...)												\
+do {																								\
+	char buffer[BUF_SIZE];																	\
+																									\
+	snprintf(buffer, BUF_SIZE, "*** " format 	" (STATUS = %s) " 				\
+		"(%s::%d) ***\r\n", ##__VA_ARGS__, STATUS(status), FILE, LINE);		\
+	HAL_UART_Transmit(&debugPort, (uint8_t*) buffer, sizeof(buffer),			\
+		HAL_MAX_DELAY);																		\
+} while (0)
+
+/**
+ * Transmit the kernel message from MCU to PC over serial UAR line.
+ */
+#define printKernel(format, ...)															\
+do {																								\
+	char buffer[BUF_SIZE];																	\
+																									\
+	snprintf(buffer, BUF_SIZE, "*** " format 	" (%s::%d) ***\r\n", 			\
+		##__VA_ARGS__, FILE, LINE);														\
+	HAL_UART_Transmit(&debugPort, (uint8_t*) buffer, sizeof(buffer),			\
+		HAL_MAX_DELAY);																		\
+} while (0)
+
+/* Function prototypes */
+
+extern void configOscClk(void);
+extern void configDebugPort(void);
+
+extern void simpleTask1(void *);
+extern void simpleTask2(void *);
+extern void senderTask(void *);
+extern void receiverTask(void *);
+extern void timerCallback(TimerHandle_t);
+
+extern void SysTick_Handler(void);
+extern void xPortSysTickHandler(void);
+extern void vApplicationIdleHook(void);
