@@ -68,7 +68,7 @@ extern void receiverTask(void *pvParameters)
 	{
 		if (uxQueueMessagesWaiting(queue) == 0)
 			printKernel("queue shouldn't have been empty!");
-
+		
 		res = xQueueReceive(queue, &value, pdMS_TO_TICKS(50));
 		if (res != pdPASS)
 			printKernel("couldn't receive the value from queue!");
@@ -87,7 +87,7 @@ void timerCallback(TimerHandle_t timer)
 {
 	printLog("auto reload timer is called at %ld tick count", 
 		xTaskGetTickCount());
-
+	
 	/**
 	 * Other useful APIs:
 	 * 

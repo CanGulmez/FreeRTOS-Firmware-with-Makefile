@@ -25,13 +25,13 @@
 #include <math.h>
 #include <ctype.h>
 
-#include "../lib/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+#include "stm32f4xx_hal.h"
 
-#include "../lib/FreeRTOS/include/FreeRTOS.h"
-#include "../lib/FreeRTOS/include/task.h"
-#include "../lib/FreeRTOS/include/queue.h"
-#include "../lib/FreeRTOS/include/timers.h"
-#include "../lib/FreeRTOS/include/semphr.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "timers.h"
+#include "semphr.h"
 
 /* GLobal definitions */
 
@@ -44,6 +44,7 @@
 									 (status == HAL_BUSY) 		? "BUSY"		:	\
 									 (status == HAL_TIMEOUT) 	? "TIMEOUT" :	\
 													 					  "UNDEFINED")
+																		  
 extern RCC_OscInitTypeDef iosc;
 extern RCC_ClkInitTypeDef iclk;
 extern GPIO_InitTypeDef igpio;
