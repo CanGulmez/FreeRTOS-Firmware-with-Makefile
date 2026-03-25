@@ -25,13 +25,14 @@
 #include <math.h>
 #include <ctype.h>
 
-#include "stm32f4xx_hal.h"
+#include "../lib/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
 
-#include "FreeRTOS.h"
-#include "task.h"
-#include "queue.h"
-#include "timers.h"
-#include "semphr.h"
+#include "../lib/FreeRTOS/include/FreeRTOS.h"
+#include "../lib/FreeRTOS/include/task.h"
+#include "../lib/FreeRTOS/include/queue.h"
+#include "../lib/FreeRTOS/include/timers.h"
+#include "../lib/FreeRTOS/include/semphr.h"
+#include "../lib/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h"
 
 /* GLobal definitions */
 
@@ -40,9 +41,9 @@
 #define FILE					__FILE__
 #define LINE					__LINE__
 
-#define STATUS(status) 		((status == HAL_ERROR) 		? "ERROR" 	: 	\
-									 (status == HAL_BUSY) 		? "BUSY"		:	\
-									 (status == HAL_TIMEOUT) 	? "TIMEOUT" :	\
+#define STATUS(status) 		((status == HAL_ERROR) 		? "ERROR" 	: 			\
+									 (status == HAL_BUSY) 		? "BUSY"		:			\
+									 (status == HAL_TIMEOUT) 	? "TIMEOUT" :			\
 													 					  "UNDEFINED")
 																		  
 extern RCC_OscInitTypeDef iosc;
@@ -98,8 +99,12 @@ extern void configDebugPort(void);
 
 extern void simpleTask1(void *);
 extern void simpleTask2(void *);
+extern void simpleTask3(void *);
+extern void simpleTask4(void *);
+
 extern void senderTask(void *);
 extern void receiverTask(void *);
+
 extern void timerCallback(TimerHandle_t);
 
 extern void SysTick_Handler(void);
