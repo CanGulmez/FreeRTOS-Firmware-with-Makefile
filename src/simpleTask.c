@@ -99,9 +99,6 @@
 
 #include "main.h"
 
-QueueHandle_t queue;
-TimerHandle_t timer;
-
 void simpleTask1(void *pvParams)
 {
 	int32_t localVar = 0;

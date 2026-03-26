@@ -32,7 +32,6 @@
 #include "../lib/FreeRTOS/include/queue.h"
 #include "../lib/FreeRTOS/include/timers.h"
 #include "../lib/FreeRTOS/include/semphr.h"
-#include "../lib/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h"
 
 /* GLobal definitions */
 
@@ -45,14 +44,32 @@
 									 (status == HAL_BUSY) 		? "BUSY"		:			\
 									 (status == HAL_TIMEOUT) 	? "TIMEOUT" :			\
 													 					  "UNDEFINED")
-																		  
+
+/*****************************************************************************/
+/*****************************************************************************/
+
+typedef enum
+{
+	eSender1,
+	eSender2
+} DataSource_t;
+
+typedef struct
+{
+	uint8_t pValue;
+	DataSource_t eDataSource;
+} Data_t;
+
 extern RCC_OscInitTypeDef iosc;
 extern RCC_ClkInitTypeDef iclk;
 extern GPIO_InitTypeDef igpio;
 extern UART_HandleTypeDef debugPort;
 
 extern QueueHandle_t queue;
-extern TimerHandle_t timer;
+extern TimerHandle_t autoReloadTimer, oneShotTimer;
+
+/*****************************************************************************/
+/*****************************************************************************/
 
 /**
  * Transmit the logs from MCU to PC over serial UAR line.
@@ -92,6 +109,9 @@ do {																								\
 		HAL_MAX_DELAY);																		\
 } while (0)
 
+/*****************************************************************************/
+/*****************************************************************************/
+
 /* Function prototypes */
 
 extern void configOscClk(void);
@@ -105,7 +125,8 @@ extern void simpleTask4(void *);
 extern void senderTask(void *);
 extern void receiverTask(void *);
 
-extern void timerCallback(TimerHandle_t);
+extern void autoReloadTimerCallback(TimerHandle_t);
+extern void oneShotTimerCallback(TimerHandle_t);
 
 extern void SysTick_Handler(void);
 extern void xPortSysTickHandler(void);

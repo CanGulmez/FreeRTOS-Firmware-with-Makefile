@@ -4,6 +4,11 @@
 
 #include "main.h"
 
+/* Global and shared objects */
+
+QueueHandle_t queue;
+TimerHandle_t autoReloadTimer, oneShotTimer;
+
 int main(void)
 {
 	BaseType_t res;
@@ -20,33 +25,35 @@ int main(void)
 
 	/* Create the simple tasks. */
 
-	res = xTaskCreate(
-		simpleTask1, 			/* task prototype */
-		"Simple Task 1",		/* task name */
-		512,						/* task stack depth in words */
-		NULL,						/* task parameter */
-		1,							/* task priority */
-		NULL						/* task payload */
-	);
-	if (res != pdPASS)
-		printKernel("couldn't create the simple task 1!");
+	// res = xTaskCreate(
+	// 	simpleTask1, 			/* task prototype */
+	// 	"Simple Task 1",		/* task name */
+	// 	512,						/* task stack depth in words */
+	// 	NULL,						/* task parameter */
+	// 	1,							/* task priority */
+	// 	NULL						/* task payload */
+	// );
+	// if (res != pdPASS)
+	// 	printKernel("couldn't create the simple task 1!");
 
-	res = xTaskCreate(simpleTask2, "Simple Task 2", 512, NULL, 1, NULL);
-	if (res != pdPASS)
-		printKernel("couldn't create the simple task 2!");
+	// res = xTaskCreate(simpleTask2, "Simple Task 2", 512, NULL, 1, NULL);
+	// if (res != pdPASS)
+	// 	printKernel("couldn't create the simple task 2!");
 
-	res = xTaskCreate(simpleTask3, "Simple Task 3", 512, NULL, 1, NULL);
-	if (res != pdPASS)
-		printKernel("couldn't create the simple task 3!");
+	// res = xTaskCreate(simpleTask3, "Simple Task 3", 512, NULL, 1, NULL);
+	// if (res != pdPASS)
+	// 	printKernel("couldn't create the simple task 3!");
 
-	res = xTaskCreate(simpleTask4, "Simple Task 4", 512, NULL, 1, NULL);
-	if (res != pdPASS)
-		printKernel("couldn't create the simple task 4!");
+	// res = xTaskCreate(simpleTask4, "Simple Task 4", 512, NULL, 1, NULL);
+	// if (res != pdPASS)
+	// 	printKernel("couldn't create the simple task 4!");
 	
 /*****************************************************************************/
 /*****************************************************************************/
 
-	// queue = xQueueCreate(5, sizeof(int32_t));
+	/* FreeRTOS Queue Management */
+
+	// queue = xQueueCreate(1, 2 * sizeof(Data_t));
 	// if (queue == NULL)
 	// {
 	// 	printKernel("couldn't create the queue!");
@@ -65,19 +72,37 @@ int main(void)
 /*****************************************************************************/
 /*****************************************************************************/
 
-	// timer = xTimerCreate(
-	// 	"Auto Reload Timer",			/* timer name */
-	// 	pdMS_TO_TICKS(3000),			/* timer period */
-	// 	pdTRUE,							/* timer is auto reload */
-	// 	NULL,								/* timer ID */
-	// 	timerCallback					/* timer callback */
-	// );
-	// if (timer == NULL)
-	// 	printKernel("couldn't create auto reload timer!");
+	autoReloadTimer = xTimerCreate(
+		"Auto Reload Timer",			/* timer name */
+		pdMS_TO_TICKS(3000),			/* timer period */
+		pdTRUE,							/* timer is auto reload */
+		NULL,								/* timer ID */
+		autoReloadTimerCallback		/* timer callback */
+	);
+	if (autoReloadTimer == NULL)
+		printKernel("couldn't create auto reload timer!");
 
-	// res = xTimerStart(timer, 0);
-	// if (res != pdPASS)
-	// 	printKernel("couldn't start the auto reload timer!");
+	oneShotTimer = xTimerCreate(
+		"One Shot Timer", 
+		pdMS_TO_TICKS(5000),
+		pdFALSE, 
+		NULL, 
+		oneShotTimerCallback
+	);
+	if (oneShotTimer == NULL)
+		printKernel("couldn't create one shot timer!");
+
+	res = xTimerStart(autoReloadTimer, 0);
+	if (res != pdPASS)
+		printKernel("couldn't start the auto reload timer!");
+	else
+		printLog("auto reload timer is started...");
+
+	res = xTimerStart(oneShotTimer, 0);
+	if (res != pdPASS)
+		printKernel("couldn't start the one shot timer!");	
+	else
+		printLog("one shot timer is started...");
 
 /*****************************************************************************/
 /*****************************************************************************/
