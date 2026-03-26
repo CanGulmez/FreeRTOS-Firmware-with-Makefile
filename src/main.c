@@ -73,11 +73,11 @@ int main(void)
 /*****************************************************************************/
 
 	autoReloadTimer = xTimerCreate(
-		"Auto Reload Timer",			/* timer name */
-		pdMS_TO_TICKS(3000),			/* timer period */
-		pdTRUE,							/* timer is auto reload */
-		NULL,								/* timer ID */
-		autoReloadTimerCallback		/* timer callback */
+		"Auto Reload Timer",				/* timer name */
+		pdMS_TO_TICKS(3000),				/* timer period */
+		pdTRUE,								/* timer is auto reload */
+		(void *) 10,						/* timer ID */
+		autoReloadTimerCallback			/* timer callback */
 	);
 	if (autoReloadTimer == NULL)
 		printKernel("couldn't create auto reload timer!");
@@ -86,7 +86,7 @@ int main(void)
 		"One Shot Timer", 
 		pdMS_TO_TICKS(5000),
 		pdFALSE, 
-		NULL, 
+		(void *) 20, 
 		oneShotTimerCallback
 	);
 	if (oneShotTimer == NULL)
