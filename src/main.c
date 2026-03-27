@@ -7,8 +7,10 @@
 /* Global and shared objects */
 
 QueueHandle_t queue;
-TimerHandle_t autoReloadTimer, oneShotTimer;
-SemaphoreHandle_t binarySemaphore;
+TimerHandle_t autoReloadTimer;
+TimerHandle_t oneShotTimer;
+SemaphoreHandle_t binarySem;
+SemaphoreHandle_t mutexSem;
 
 int main(void)
 {
@@ -110,17 +112,36 @@ int main(void)
 /*****************************************************************************/
 /*****************************************************************************/
 
-	binarySemaphore = xSemaphoreCreateBinary();
-	if (binarySemaphore == NULL)
-		printKernel("couldn't create the binary semaphore!");
+	/* FreeRTOS Interrupt Management */
 
-	res = xTaskCreate(syncTask1, "Sync Task 1", 512, NULL, 3, NULL);
-	if (res != pdPASS)
-		printKernel("couldn't create the sync task 1!");
+	// binarySem = xSemaphoreCreateBinary();
+	// if (binarySem == NULL)
+	// 	printKernel("couldn't create the binary semaphore!");
 
-	res = xTaskCreate(syncTask2, "Sync Task 2", 512, NULL, 1, NULL);
+	// res = xTaskCreate(syncTask1, "Sync Task 1", 512, NULL, 3, NULL);
+	// if (res != pdPASS)
+	// 	printKernel("couldn't create the sync task 1!");
+
+	// res = xTaskCreate(syncTask2, "Sync Task 2", 512, NULL, 1, NULL);
+	// if (res != pdPASS)
+	// 	printKernel("couldn't create the sync task 2!");
+
+/*****************************************************************************/
+/*****************************************************************************/
+
+	/* FreeRTOS Resource Management */
+
+	mutexSem = xSemaphoreCreateMutex();
+	if (mutexSem == NULL)
+		printKernel("couldn't create the mutex semaphore!");
+
+	res = xTaskCreate(resourceTask1, "Resource Task 1", 512, NULL, 1, NULL);
 	if (res != pdPASS)
-		printKernel("couldn't create the sync task 2!");
+		printKernel("couldn't create the release task 1!");
+
+	res = xTaskCreate(resourceTask2, "Resource Task 2", 512, NULL, 1, NULL);
+	if (res != pdPASS)
+		printKernel("couldn't create the release task 2!");
 
 /*****************************************************************************/
 /*****************************************************************************/

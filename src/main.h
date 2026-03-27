@@ -45,6 +45,8 @@
 									 (status == HAL_TIMEOUT) 	? "TIMEOUT" :			\
 													 					  "UNDEFINED")
 
+#define SHARED_RESOURCE		3
+
 /*****************************************************************************/
 /*****************************************************************************/
 
@@ -60,14 +62,18 @@ typedef struct
 	DataSource_t eDataSource;
 } Data_t;
 
+extern int sharedResource[SHARED_RESOURCE];
+
 extern RCC_OscInitTypeDef iosc;
 extern RCC_ClkInitTypeDef iclk;
 extern GPIO_InitTypeDef igpio;
 extern UART_HandleTypeDef debugPort;
 
 extern QueueHandle_t queue;
-extern TimerHandle_t autoReloadTimer, oneShotTimer;
-extern SemaphoreHandle_t binarySemaphore;
+extern TimerHandle_t autoReloadTimer;
+extern TimerHandle_t oneShotTimer;
+extern SemaphoreHandle_t binarySem;
+extern SemaphoreHandle_t mutexSem;
 
 /*****************************************************************************/
 /*****************************************************************************/
@@ -131,6 +137,9 @@ extern void oneShotTimerCallback(TimerHandle_t);
 
 extern void syncTask1(void *);
 extern void syncTask2(void *);
+
+extern void resourceTask1(void *);
+extern void resourceTask2(void *);
 
 extern void SysTick_Handler(void);
 extern void xPortSysTickHandler(void);

@@ -51,7 +51,7 @@ void syncTask1(void *pvParams)
 	{
 		printLog("syncTask1() started here...");
 
-		res = xSemaphoreTake(binarySemaphore, portMAX_DELAY);
+		res = xSemaphoreTake(binarySem, portMAX_DELAY);
 		if (res != pdPASS)
 			printKernel("semaphore cannot be taken from syncTask1()!");
 
@@ -72,7 +72,7 @@ void syncTask2(void *pvParams)
 
 		vTaskDelay(pdMS_TO_TICKS(5000));	/* delay in ms */
 
-		res = xSemaphoreGive(binarySemaphore);
+		res = xSemaphoreGive(binarySem);
 		if (res != pdPASS)
 			printKernel("semaphore cannot be given from syncTask2()!");
 			
