@@ -43,7 +43,8 @@ LINKER_SCRIPT	:= lib/STM32F446RETX_FLASH.ld
 DEFINES			:= -D$(DEVICE_FAMILY) -D$(DEVICE_MODEL) -D$(DEVICE_VARIANT) \
 						-DUSE_HAL_DRIVER
 
-SOURCES			:= $(MAIN_SRC) $(HAL_SRC) $(SYSTEM_SRC) $(RTOS_SRC) $(RTOS_GCC_SRC) $(RTOS_MEM_SRC)
+SOURCES			:= $(MAIN_SRC) $(HAL_SRC) $(SYSTEM_SRC) $(RTOS_SRC) $(RTOS_GCC_SRC) \
+						$(RTOS_MEM_SRC)
 OBJECTS			:= $(notdir $(patsubst %.c,%.o,$(SOURCES))) startup_stm32f446xx.o
 INCLUDES			:= -I$(MAIN_INC) -I$(CMSIS_DEV_INC) -I$(CMSIS_INC) -I$(HAL_INC) \
 						-I$(RTOS_INC) -I$(RTOS_GCC_INC)
@@ -52,7 +53,7 @@ CFLAGS			:= $(CORTEX_FLAGS) $(COMMON_FLAGS) $(DEFINES) $(INCLUDES)
 AFLAGS			:= $(CORTEX_FLAGS) $(AS_FLAGS) $(DEFINES) $(INCLUDES)
 LDFLAGS			:= $(CORTEX_FLAGS) -T $(LINKER_SCRIPT) \
 						-Wl,--gc-sections,--relax --specs=nano.specs --specs=nosys.specs \
-				   	-Wl,--start-group -lc -lm -lnosys -Wl,--end-group
+				   	-Wl,--start-group -lc -lm -Wl,--end-group
 
 # Output definitions
 FIRMWARE_ELF	:= $(OUTPUT_DIR)/firmware.elf
@@ -68,7 +69,7 @@ all:
 	@echo "\nLinking the object files..."
 	@$(CC) $(LDFLAGS) $(OBJECTS) -o $(FIRMWARE_ELF)
 	@$(OBJCOPY) -O binary $(FIRMWARE_ELF) $(FIRMWARE_BIN)
-	@$(RM) $(OBJECTS)
+	@$(RM) $(OBJECTS) 
 
 	@echo "\nThe firmware section sizes:"
 	@$(SIZE) $(FIRMWARE_ELF)

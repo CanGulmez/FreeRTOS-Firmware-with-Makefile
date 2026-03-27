@@ -32,6 +32,7 @@
 #include "../lib/FreeRTOS/include/queue.h"
 #include "../lib/FreeRTOS/include/timers.h"
 #include "../lib/FreeRTOS/include/semphr.h"
+#include "../lib/FreeRTOS/include/event_groups.h"
 
 /* GLobal definitions */
 
