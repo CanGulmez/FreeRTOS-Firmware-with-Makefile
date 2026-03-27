@@ -1,18 +1,5 @@
 /**
- ******************************************************************************
- * @file 	main.h
- * @author 	Ahmet Can GULMEZ
- * @brief 	Main header file.
- * 
- ******************************************************************************
- * @attention
- * 
- * Copyright (c) 2025 Ahmet Can GULMEZ.
- * All rights reserved.
- * 
- * This software is licensed under the MIT License.
- * 
- *****************************************************************************
+ * Complete FreeRTOS Tutorial
  */
 
 /* Libraries */
