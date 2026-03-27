@@ -8,6 +8,7 @@
 
 QueueHandle_t queue;
 TimerHandle_t autoReloadTimer, oneShotTimer;
+SemaphoreHandle_t binarySemaphore;
 
 int main(void)
 {
@@ -23,7 +24,7 @@ int main(void)
 /*****************************************************************************/
 /*****************************************************************************/
 
-	/* Create the simple tasks. */
+	/* FreeRTOS Task Management */
 
 	// res = xTaskCreate(
 	// 	simpleTask1, 			/* task prototype */
@@ -72,42 +73,54 @@ int main(void)
 /*****************************************************************************/
 /*****************************************************************************/
 
-	autoReloadTimer = xTimerCreate(
-		"Auto Reload Timer",				/* timer name */
-		pdMS_TO_TICKS(3000),				/* timer period */
-		pdTRUE,								/* timer is auto reload */
-		(void *) 10,						/* timer ID */
-		autoReloadTimerCallback			/* timer callback */
-	);
-	if (autoReloadTimer == NULL)
-		printKernel("couldn't create auto reload timer!");
+	/* FreeRTOS Software Timer Management */
 
-	oneShotTimer = xTimerCreate(
-		"One Shot Timer", 
-		pdMS_TO_TICKS(5000),
-		pdFALSE, 
-		(void *) 20, 
-		oneShotTimerCallback
-	);
-	if (oneShotTimer == NULL)
-		printKernel("couldn't create one shot timer!");
+	// autoReloadTimer = xTimerCreate(
+	// 	"Auto Reload Timer",				/* timer name */
+	// 	pdMS_TO_TICKS(3000),				/* timer period */
+	// 	pdTRUE,								/* timer is auto reload */
+	// 	(void *) 10,						/* timer ID */
+	// 	autoReloadTimerCallback			/* timer callback */
+	// );
+	// if (autoReloadTimer == NULL)
+	// 	printKernel("couldn't create auto reload timer!");
 
-	res = xTimerStart(autoReloadTimer, 0);
-	if (res != pdPASS)
-		printKernel("couldn't start the auto reload timer!");
-	else
-		printLog("auto reload timer is started...");
+	// oneShotTimer = xTimerCreate(
+	// 	"One Shot Timer", 
+	// 	pdMS_TO_TICKS(5000),
+	// 	pdFALSE, 
+	// 	(void *) 20, 
+	// 	oneShotTimerCallback
+	// );
+	// if (oneShotTimer == NULL)
+	// 	printKernel("couldn't create one shot timer!");
 
-	res = xTimerStart(oneShotTimer, 0);
-	if (res != pdPASS)
-		printKernel("couldn't start the one shot timer!");	
-	else
-		printLog("one shot timer is started...");
+	// res = xTimerStart(autoReloadTimer, 0);
+	// if (res != pdPASS)
+	// 	printKernel("couldn't start the auto reload timer!");
+	// else
+	// 	printLog("auto reload timer is started...");
+
+	// res = xTimerStart(oneShotTimer, 0);
+	// if (res != pdPASS)
+	// 	printKernel("couldn't start the one shot timer!");	
+	// else
+	// 	printLog("one shot timer is started...");
 
 /*****************************************************************************/
 /*****************************************************************************/
 
-	
+	binarySemaphore = xSemaphoreCreateBinary();
+	if (binarySemaphore == NULL)
+		printKernel("couldn't create the binary semaphore!");
+
+	res = xTaskCreate(syncTask1, "Sync Task 1", 512, NULL, 3, NULL);
+	if (res != pdPASS)
+		printKernel("couldn't create the sync task 1!");
+
+	res = xTaskCreate(syncTask2, "Sync Task 2", 512, NULL, 1, NULL);
+	if (res != pdPASS)
+		printKernel("couldn't create the sync task 2!");
 
 /*****************************************************************************/
 /*****************************************************************************/

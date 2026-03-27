@@ -67,6 +67,7 @@ extern UART_HandleTypeDef debugPort;
 
 extern QueueHandle_t queue;
 extern TimerHandle_t autoReloadTimer, oneShotTimer;
+extern SemaphoreHandle_t binarySemaphore;
 
 /*****************************************************************************/
 /*****************************************************************************/
@@ -127,6 +128,9 @@ extern void receiverTask(void *);
 
 extern void autoReloadTimerCallback(TimerHandle_t);
 extern void oneShotTimerCallback(TimerHandle_t);
+
+extern void syncTask1(void *);
+extern void syncTask2(void *);
 
 extern void SysTick_Handler(void);
 extern void xPortSysTickHandler(void);
