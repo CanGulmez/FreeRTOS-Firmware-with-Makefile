@@ -12,14 +12,18 @@
 #include <math.h>
 #include <ctype.h>
 
-#include "../lib/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+#include "../driver/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+#include "../driver/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+#include "../driver/CMSIS/Include/core_cm4.h"
 
-#include "../lib/FreeRTOS/include/FreeRTOS.h"
-#include "../lib/FreeRTOS/include/task.h"
-#include "../lib/FreeRTOS/include/queue.h"
-#include "../lib/FreeRTOS/include/timers.h"
-#include "../lib/FreeRTOS/include/semphr.h"
-#include "../lib/FreeRTOS/include/event_groups.h"
+#include "../driver/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+
+#include "../driver/FreeRTOS/include/FreeRTOS.h"
+#include "../driver/FreeRTOS/include/task.h"
+#include "../driver/FreeRTOS/include/queue.h"
+#include "../driver/FreeRTOS/include/timers.h"
+#include "../driver/FreeRTOS/include/semphr.h"
+#include "../driver/FreeRTOS/include/event_groups.h"
 
 /* GLobal definitions */
 

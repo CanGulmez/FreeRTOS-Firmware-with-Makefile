@@ -25,6 +25,11 @@
  * 											  const BaseType_t xClearOnExit,
  * 											  const BaseType_t xWaitForAllBits,
  * 											  TickType_t xTicksToWait);
+ * 
+ * The xEventGroupWaitBits() API function allows a task to read
+ * the value of an event group, and optionally wait in the Blocked
+ * state for one or more event bits in the event group to become
+ * set, if the event bits are not already set.
  */
 
 #include "main.h"
