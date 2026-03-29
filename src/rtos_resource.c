@@ -60,7 +60,6 @@ void resourceTask2(void *pvParams)
 		res = xSemaphoreTake(mutexSem, portMAX_DELAY);
 		if (res == pdTRUE)
 		{
-			printLog("-----");
 			for (i = 0; i < SHARED_RESOURCE; i++)
 			{
 				printLog("%d", sharedResource[i]);

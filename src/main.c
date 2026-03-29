@@ -21,7 +21,7 @@ int main(void)
 	configOscClk();
 	configDebugPort();
 
-	printLog("\rThe firmware is running...");
+	printLog("\nThe firmware is running...");
 
 /*****************************************************************************/
 /*****************************************************************************/
@@ -31,7 +31,7 @@ int main(void)
 	res = xTaskCreate(
 		simpleTask1, 			/* task prototype */
 		"Simple Task 1",		/* task name */
-		512,						/* task stack depth in words */
+		256,						/* task stack depth in words */
 		NULL,						/* task parameter */
 		1,							/* task priority */
 		NULL						/* task payload */
@@ -39,15 +39,15 @@ int main(void)
 	if (res != pdPASS)
 		printKernel("couldn't create the simple task 1!");
 
-	res = xTaskCreate(simpleTask2, "Simple Task 2", 512, NULL, 1, NULL);
+	res = xTaskCreate(simpleTask2, "Simple Task 2", 256, NULL, 1, NULL);
 	if (res != pdPASS)
 		printKernel("couldn't create the simple task 2!");
 
-	res = xTaskCreate(simpleTask3, "Simple Task 3", 512, NULL, 1, NULL);
+	res = xTaskCreate(simpleTask3, "Simple Task 3", 256, NULL, 1, NULL);
 	if (res != pdPASS)
 		printKernel("couldn't create the simple task 3!");
 
-	res = xTaskCreate(simpleTask4, "Simple Task 4", 512, NULL, 1, NULL);
+	res = xTaskCreate(simpleTask4, "Simple Task 4", 256, NULL, 1, NULL);
 	if (res != pdPASS)
 		printKernel("couldn't create the simple task 4!");
 	
@@ -63,11 +63,11 @@ int main(void)
 	}
 	else
 	{
-		res = xTaskCreate(senderTask, "Sender Task", 512, NULL, 1, NULL);
+		res = xTaskCreate(senderTask, "Sender Task", 256, NULL, 1, NULL);
 		if (res != pdPASS)
 			printKernel("couldn't create the sender task!");
 
-		res = xTaskCreate(receiverTask, "Receiver Task", 512, NULL, 1, NULL);
+		res = xTaskCreate(receiverTask, "Receiver Task", 256, NULL, 1, NULL);
 		if (res != pdPASS)
 			printKernel("couldn't create the receiver task!");			
 	}
@@ -118,11 +118,11 @@ int main(void)
 	if (binarySem == NULL)
 		printKernel("couldn't create the binary semaphore!");
 
-	res = xTaskCreate(syncTask1, "Sync Task 1", 512, NULL, 3, NULL);
+	res = xTaskCreate(syncTask1, "Sync Task 1", 256, NULL, 3, NULL);
 	if (res != pdPASS)
 		printKernel("couldn't create the sync task 1!");
 
-	res = xTaskCreate(syncTask2, "Sync Task 2", 512, NULL, 1, NULL);
+	res = xTaskCreate(syncTask2, "Sync Task 2", 256, NULL, 1, NULL);
 	if (res != pdPASS)
 		printKernel("couldn't create the sync task 2!");
 
@@ -135,18 +135,23 @@ int main(void)
 	if (mutexSem == NULL)
 		printKernel("couldn't create the mutex semaphore!");
 
-	res = xTaskCreate(resourceTask1, "Resource Task 1", 512, NULL, 1, NULL);
+	res = xTaskCreate(resourceTask1, "Resource Task 1", 256, NULL, 1, NULL);
 	if (res != pdPASS)
 		printKernel("couldn't create the release task 1!");
 
-	res = xTaskCreate(resourceTask2, "Resource Task 2", 512, NULL, 1, NULL);
+	res = xTaskCreate(resourceTask2, "Resource Task 2", 256, NULL, 1, NULL);
 	if (res != pdPASS)
 		printKernel("couldn't create the release task 2!");
 
 /*****************************************************************************/
 /*****************************************************************************/
 
-	/* FreeRTOS Event Groups Management */
+	/* FreeRTOS Event Group Management */
+
+/*****************************************************************************/
+/*****************************************************************************/
+
+	/* FreeRTOS Task Notification Management */
 
 /*****************************************************************************/
 /*****************************************************************************/

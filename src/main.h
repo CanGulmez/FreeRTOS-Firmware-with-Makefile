@@ -11,6 +11,7 @@
 #include <string.h>
 #include <math.h>
 #include <ctype.h>
+#include <sys/stat.h>
 
 #include "../driver/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
 #include "../driver/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
@@ -112,6 +113,15 @@ do {																								\
 /*****************************************************************************/
 
 /* Function prototypes */
+
+extern int _read(int, char *, int);
+extern int _write(int, char *, int);
+extern int _lseek(int, int, int);
+extern int _close(int);
+extern int _getpid(void);
+extern int _kill(int);
+extern int _fstat(int, struct stat *);
+extern int _isatty(int);
 
 extern void configOscClk(void);
 extern void configDebugPort(void);
