@@ -53,7 +53,7 @@ void senderTask(void *pvParams)
 
 	for (;;)
 	{
-		res = xQueueSend(queue, queueData, 0);
+		res = xQueueSend(dataQueue, queueData, 0);
 		if (res != pdPASS)
 			printKernel("couldn't send the value to queue!");
 		else
@@ -73,13 +73,13 @@ void receiverTask(void *pvParams)
 	waitTick = pdMS_TO_TICKS(50);
 	for (;;)
 	{
-		if (uxQueueMessagesWaiting(queue) == 0)
+		if (uxQueueMessagesWaiting(dataQueue) == 0)
 		{
 			printKernel("queue shouldn't have been empty!");
 		}
 		else
 		{
-			res = xQueueReceive(queue, receivedData, waitTick);
+			res = xQueueReceive(dataQueue, receivedData, waitTick);
 			if (res != pdPASS)
 				printKernel("couldn't receive the value from queue!");
 			else

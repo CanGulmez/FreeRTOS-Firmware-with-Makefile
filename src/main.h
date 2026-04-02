@@ -59,7 +59,7 @@ extern RCC_ClkInitTypeDef iclk;
 extern GPIO_InitTypeDef igpio;
 extern UART_HandleTypeDef debugPort;
 
-extern QueueHandle_t queue;
+extern QueueHandle_t dataQueue;
 extern TimerHandle_t autoReloadTimer;
 extern TimerHandle_t oneShotTimer;
 extern SemaphoreHandle_t binarySem;
