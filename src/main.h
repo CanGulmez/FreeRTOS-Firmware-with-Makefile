@@ -52,6 +52,7 @@ typedef struct
 } Data_t;
 
 extern int sharedResource[SHARED_RESOURCE];
+extern TaskHandle_t notifiedTask1Handle;
 
 extern RCC_OscInitTypeDef iosc;
 extern RCC_ClkInitTypeDef iclk;
@@ -138,6 +139,9 @@ extern void syncTask2(void *);
 
 extern void resourceTask1(void *);
 extern void resourceTask2(void *);
+
+extern void notifiedTask1(void *);
+extern void notifiedTask2(void *);
 
 extern void SysTick_Handler(void);
 extern void xPortSysTickHandler(void);
