@@ -28,8 +28,8 @@ int main(void)
 /*****************************************************************************/
 /*****************************************************************************/
 
-	/* FreeRTOS Task Management */
-	
+	/* FreeRTOS Task Management */	
+
 	res = xTaskCreate(
 		simpleTask1, 			/* task prototype */
 		"Simple Task 1",		/* task name */
@@ -189,3 +189,4 @@ int main(void)
 
 	while (1);
 }
+ 

@@ -1,18 +1,5 @@
 /**
- ******************************************************************************
- * @file 	peripheral.c
- * @author 	Ahmet Can GULMEZ
- * @brief 	Peripheral configurations.
- * 
- ******************************************************************************
- * @attention
- * 
- * Copyright (c) 2025 Ahmet Can GULMEZ.
- * All rights reserved.
- * 
- * This software is licensed under the MIT License.
- * 
- *****************************************************************************
+ * Peripheral configurations
  */
 
 #include "main.h"
@@ -61,3 +48,4 @@ void configDebugPort(void)
 	debugPort.Init.WordLength = UART_WORDLENGTH_8B;
 	HAL_UART_Init(&debugPort);
 }
+ 

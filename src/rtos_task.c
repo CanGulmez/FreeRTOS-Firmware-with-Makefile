@@ -172,8 +172,3 @@ void simpleTask4(void *pvParams)
 	}
 	vTaskDelete(NULL);
 }
-
-void vApplicationIdleHook(void)
-{
-	__WFI();
-}
