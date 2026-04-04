@@ -36,6 +36,10 @@
 
 #define SHARED_RESOURCE		3
 
+#define EVENT_TASK_BIT_0	(1 << 0)
+#define EVENT_TASK_BIT_1	(1 << 1)
+#define EVENT_TASK_BIT_2	(1 << 2)
+
 /*****************************************************************************/
 /*****************************************************************************/
 
@@ -64,6 +68,7 @@ extern TimerHandle_t autoReloadTimer;
 extern TimerHandle_t oneShotTimer;
 extern SemaphoreHandle_t binarySem;
 extern SemaphoreHandle_t mutexSem;
+extern EventGroupHandle_t eventGroup;
 
 /*****************************************************************************/
 /*****************************************************************************/
@@ -131,14 +136,18 @@ extern void simpleTask4(void *);
 extern void senderTask(void *);
 extern void receiverTask(void *);
 
-extern void autoReloadTimerCallback(TimerHandle_t);
-extern void oneShotTimerCallback(TimerHandle_t);
+extern void autoReloadTimer1(TimerHandle_t);
+extern void oneShotTimer2(TimerHandle_t);
 
 extern void syncTask1(void *);
 extern void syncTask2(void *);
 
 extern void resourceTask1(void *);
 extern void resourceTask2(void *);
+
+extern void eventTask1(void *);
+extern void eventTask2(void *);
+extern void eventTask3(void *);
 
 extern void notifiedTask1(void *);
 extern void notifiedTask2(void *);

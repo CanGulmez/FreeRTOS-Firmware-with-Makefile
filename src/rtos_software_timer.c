@@ -68,7 +68,7 @@
 
 #include "main.h"
 
-void autoReloadTimerCallback(TimerHandle_t xTimer)
+void autoReloadTimer1(TimerHandle_t xTimer)
 {
 	int autoReloadTimerID;
 
@@ -82,7 +82,7 @@ void autoReloadTimerCallback(TimerHandle_t xTimer)
 	/* xTimerChangePeriod(xTimer, pdMS_TO_TICKS(2000), 0); */
 }
 
-void oneShotTimerCallback(TimerHandle_t xTimer)
+void oneShotTimer2(TimerHandle_t xTimer)
 {
 	int oneShotTimerID;
 

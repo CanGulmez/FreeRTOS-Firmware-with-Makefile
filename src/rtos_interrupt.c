@@ -39,6 +39,18 @@
  * 
  * 	BaseType_t xSemaphoreTake(SemaphoreHandle_t xSemaphore,
  * 									  TickType_t xTicksToWait);
+ * 
+ * Often it is necessary to use the functionality provided by a
+ * Freertos API function from an interrupt service routine (ISR).
+ * FreeRTOS serves the functions ending with "FromISR" for this.
+ * 
+ * There are several reasons why context switches do not occur
+ * automatically inside the interrupt safe version of an API
+ * function:
+ * 
+ * + Avoiding unnecessary context switches
+ * + Control over the execution sequence
+ * + Execution in the RTOS tick interrupt
  */
 
 #include "main.h"
@@ -50,7 +62,7 @@ void syncTask1(void *pvParams)
 	for (;;)
 	{
 		printLog("syncTask1() started here...");
-
+		
 		res = xSemaphoreTake(binarySem, portMAX_DELAY);
 		if (res != pdPASS)
 			printKernel("semaphore cannot be taken from syncTask1()!");
