@@ -14,7 +14,7 @@ $ git clone --recurse-submodules https://github.com/STMicroelectronics/STM32Cube
 Also to compile the firmware, you need the corresponding ARM toolchain:
 
 ```bash
-$ sudo apt install gcc-arm-none-eabi	/* NEVER use host's toolchain */
+$ sudo apt install gcc-arm-none-eabi	# NEVER use host's toolchain
 ```
 
 After got the required libraries, put these under `./lib` directory. Also
@@ -24,7 +24,8 @@ there. Mostly, it comes with CMSIS, but move it as how I did.
 To build the firmware, just run the Makefile:
 
 ```bash
-$ make
+$ make lib		# build the static library for just one time
+$ make bin		# build the firmware code for every change
 ```
 
 This will create the both `firmware.elf` and `firmware.bin` under `./bin`.

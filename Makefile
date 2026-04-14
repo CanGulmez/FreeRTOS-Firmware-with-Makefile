@@ -19,7 +19,7 @@ COMMON_FLAGS	:= -O0 -Wall -ffunction-sections -fdata-sections
 AS_FLAGS			:= -x assembler-with-cpp
 
 # Include paths
-MAIN_INC			:= src
+MAIN_INC			:= ./src
 CMSIS_INC		:= ./driver/CMSIS/Include 
 CMSIS_DEV_INC	:= ./driver/CMSIS/Device/ST/STM32F4xx/Include
 HAL_INC			:= ./driver/STM32F4xx_HAL_Driver/Inc
