@@ -78,15 +78,17 @@ void rtosTask10(void *pvParams)
 {
 	printLog("rtosTask10() started here...");
 
+	/* Enable the EXTI0 interrupt. */
+	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+	HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
+
 	for (;;)
 	{
 		vTaskDelay(pdMS_TO_TICKS(2000));	/* delay in ms */
 
 		printLog("EXTI0 interrupt is triggered from rtosTask10().");
 
-		/* Enable and then trigger the EXTI0 interrupt handler. */
-		HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-		HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
+		/* Trigger the EXTI0 interrupt handler. */
 		HAL_NVIC_SetPendingIRQ(EXTI0_IRQn);
 			
 		vTaskDelay(pdMS_TO_TICKS(1000));	/* delay in ms */
