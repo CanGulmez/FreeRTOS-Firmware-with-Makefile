@@ -55,41 +55,41 @@
 
 #include "main.h"
 
-void syncTask1(void *pvParams)
+void rtosTask9(void *pvParams)
 {
 	BaseType_t res;
 
+	printLog("rtosTask9() started here...");
+
 	for (;;)
-	{
-		printLog("syncTask1() started here...");
-		
+	{	
 		res = xSemaphoreTake(binarySem, portMAX_DELAY);
 		if (res != pdPASS)
-			printKernel("semaphore cannot be taken from syncTask1()!");
+			printKernel("semaphore cannot be taken from rtosTask9()!");
 
-		printLog("doing the task stuffs...");
+		printLog("doing the rtosTask9() stuffs...");
 
 		vTaskDelay(pdMS_TO_TICKS(2000));	/* delay in ms */
 	}
 	vTaskDelete(NULL);
 }
 
-void syncTask2(void *pvParams)
+void rtosTask10(void *pvParams)
 {
-	BaseType_t res;
+	printLog("rtosTask10() started here...");
 
 	for (;;)
 	{
-		printLog("syncTask2() started here...");
+		vTaskDelay(pdMS_TO_TICKS(2000));	/* delay in ms */
 
-		vTaskDelay(pdMS_TO_TICKS(5000));	/* delay in ms */
+		printLog("EXTI0 interrupt is triggered from rtosTask10().");
 
-		res = xSemaphoreGive(binarySem);
-		if (res != pdPASS)
-			printKernel("semaphore cannot be given from syncTask2()!");
+		/* Enable and then trigger the EXTI0 interrupt handler. */
+		HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+		HAL_NVIC_SetPriority(EXTI0_IRQn, 6, 0);
+		HAL_NVIC_SetPendingIRQ(EXTI0_IRQn);
 			
-		vTaskDelay(pdMS_TO_TICKS(3000));	/* delay in ms */
+		vTaskDelay(pdMS_TO_TICKS(1000));	/* delay in ms */
 	}
 	vTaskDelete(NULL);
 }
-

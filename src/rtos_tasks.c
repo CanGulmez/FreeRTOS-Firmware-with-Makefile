@@ -99,33 +99,33 @@
 
 #include "main.h"
 
-void simpleTask1(void *pvParams)
+void rtosTask1(void *pvParams)
 {
 	int32_t localVar = 0;
 
 	for (;;)
 	{
-		printLog("simple task 1: %ld", localVar++);
+		printLog("rtos task 1: %ld", localVar++);
 
 		vTaskDelay(pdMS_TO_TICKS(2000));	/* delay in ms */
 	}
 	vTaskDelete(NULL);
 }
 
-void simpleTask2(void *pvParams)
+void rtosTask2(void *pvParams)
 {
 	int32_t localVar = 0;
 
 	for (;;)
 	{
-		printLog("simple task 2: %ld", localVar++);
+		printLog("rtos task 2: %ld", localVar++);
 		
 		vTaskDelay(pdMS_TO_TICKS(6000));	/* delay in ms */
 	}
 	vTaskDelete(NULL);
 }
 
-void simpleTask3(void *pvParams)
+void rtosTask3(void *pvParams)
 {
 	int32_t localVar = 0;
 	TickType_t lastWake;
@@ -140,7 +140,7 @@ void simpleTask3(void *pvParams)
 
 	for (;;)
 	{
-		printLog("simple task 3: %ld (tick count: %ld)", 
+		printLog("rtos task 3: %ld (tick count: %ld)", 
 					localVar++, lastWake);
 		
 		vTaskDelayUntil(&lastWake, pdMS_TO_TICKS(5000));
@@ -148,7 +148,7 @@ void simpleTask3(void *pvParams)
 	vTaskDelete(NULL);
 }
 
-void simpleTask4(void *pvParams)
+void rtosTask4(void *pvParams)
 {
 	int32_t localVar = 0;
 	UBaseType_t taskPriority;
@@ -165,7 +165,7 @@ void simpleTask4(void *pvParams)
 		 */
 		taskPriority = uxTaskPriorityGet(NULL);
 
-		printLog("simple task 4: %ld (task priority: %ld)", 
+		printLog("rtos task 4: %ld (task priority: %ld)", 
 					localVar++, taskPriority);
 
 		vTaskDelay(pdMS_TO_TICKS(3000));	/* delay in ms */

@@ -26,7 +26,7 @@
 
 int sharedResource[SHARED_RESOURCE];
 
-void resourceTask1(void *pvParams)
+void rtosTask11(void *pvParams)
 {
 	int i;
 	BaseType_t res;
@@ -39,7 +39,7 @@ void resourceTask1(void *pvParams)
 		{
 			for (i = 0; i < SHARED_RESOURCE; i++)
 			{
-				sharedResource[i] = rand() & 100;
+				sharedResource[i] = rand() % 100;
 			}
 			/* Give up the mutex for next conversion. */
 			xSemaphoreGive(mutexSem);
@@ -49,7 +49,7 @@ void resourceTask1(void *pvParams)
 	vTaskDelete(NULL);
 }
 
-void resourceTask2(void *pvParams)
+void rtosTask12(void *pvParams)
 {
 	int i;
 	BaseType_t res;

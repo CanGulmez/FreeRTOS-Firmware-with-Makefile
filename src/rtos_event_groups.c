@@ -46,7 +46,7 @@
 
 #include "main.h"
 
-void eventTask1(void *pvParams)
+void rtosTask13(void *pvParams)
 {
 	TickType_t ticksToWait;
 
@@ -56,14 +56,14 @@ void eventTask1(void *pvParams)
 		vTaskDelay(ticksToWait);	/* wait for a while */
 
 		xEventGroupSetBits(eventGroup, EVENT_TASK_BIT_0);
-		printLog("eventTask1() is set the event bit 0.");
+		printLog("rtosTask13() is set the event bit 0.");
 
 		vTaskDelay(ticksToWait);	/* wait for a while */
 	}
 	vTaskDelete(NULL);
 }
 
-void eventTask2(void *pvParams)
+void rtosTask14(void *pvParams)
 {
 	TickType_t ticksToWait;
 
@@ -74,14 +74,14 @@ void eventTask2(void *pvParams)
 
 		xEventGroupSetBits(eventGroup, EVENT_TASK_BIT_1);
 		xEventGroupSetBits(eventGroup, EVENT_TASK_BIT_2);
-		printLog("eventTask2() is set the event bits 1 and 2.");
+		printLog("rtosTask14() is set the event bits 1 and 2.");
 
 		vTaskDelay(ticksToWait);	/* wait for a while */
 	}
 	vTaskDelete(NULL);
 }
 
-void eventTask3(void *pvParams)
+void rtosTask15(void *pvParams)
 {
 	EventBits_t eventGroupValue;
 	EventBits_t eventBitsToWait = (EVENT_TASK_BIT_0 | 
@@ -100,7 +100,7 @@ void eventTask3(void *pvParams)
 			portMAX_DELAY			/* wait indefinitely */
 		);	
 
-		printLog("eventTask3() is unblocked (event group value = %ld)", 
+		printLog("rtosTask15() is unblocked (event group value = %ld)", 
 			eventGroupValue);
 	}
 }

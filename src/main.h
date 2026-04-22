@@ -21,6 +21,9 @@
 #include "timers.h"
 #include "semphr.h"
 #include "event_groups.h"
+#include "stream_buffer.h"
+#include "message_buffer.h"
+
 
 /* GLobal definitions */
 
@@ -94,7 +97,7 @@ do {																								\
 																									\
 	snprintf(buffer, BUF_SIZE, "*** " format 	" (STATUS = %s) " 				\
 		"(%s::%d) ***\r\n", ##__VA_ARGS__, STATUS(status), FILE, LINE);		\
-	HAL_UART_Transmit(&debugPort, (uint8_t*) buffer, sizeof(buffer),			\
+	HAL_UART_Transmit(&debugPort, (uint8_t*) buffer, strlen(buffer),			\
 		HAL_MAX_DELAY);																		\
 } while (0)
 
@@ -107,7 +110,7 @@ do {																								\
 																									\
 	snprintf(buffer, BUF_SIZE, "*** " format 	" (%s::%d) ***\r\n", 			\
 		##__VA_ARGS__, FILE, LINE);														\
-	HAL_UART_Transmit(&debugPort, (uint8_t*) buffer, sizeof(buffer),			\
+	HAL_UART_Transmit(&debugPort, (uint8_t*) buffer, strlen(buffer),			\
 		HAL_MAX_DELAY);																		\
 } while (0)
 
@@ -128,30 +131,31 @@ extern int _isatty(int);
 extern void configOscClk(void);
 extern void configDebugPort(void);
 
-extern void simpleTask1(void *);
-extern void simpleTask2(void *);
-extern void simpleTask3(void *);
-extern void simpleTask4(void *);
+extern void rtosTask1(void *pvParams);
+extern void rtosTask2(void *pvParams);
+extern void rtosTask3(void *pvParams);
+extern void rtosTask4(void *pvParams);
 
-extern void senderTask(void *);
-extern void receiverTask(void *);
+extern void rtosTask5(void *pvParams);
+extern void rtosTask6(void *pvParams);
 
-extern void autoReloadTimer1(TimerHandle_t);
-extern void oneShotTimer2(TimerHandle_t);
+extern void rtosTask7(TimerHandle_t xTimer);
+extern void rtosTask8(TimerHandle_t xTimer);
 
-extern void syncTask1(void *);
-extern void syncTask2(void *);
+extern void rtosTask9(void *pvParams);
+extern void rtosTask10(void *pvParams);
 
-extern void resourceTask1(void *);
-extern void resourceTask2(void *);
+extern void rtosTask11(void *pvParams);
+extern void rtosTask12(void *pvParams);
 
-extern void eventTask1(void *);
-extern void eventTask2(void *);
-extern void eventTask3(void *);
+extern void rtosTask13(void *pvParams);
+extern void rtosTask14(void *pvParams);
+extern void rtosTask15(void *pvParams);
 
-extern void notifiedTask1(void *);
-extern void notifiedTask2(void *);
+extern void rtosTask16(void *pvParams);
+extern void rtosTask17(void *pvParams);
 
 extern void SysTick_Handler(void);
+extern void EXTI0_IRQHandler(void);
 extern void xPortSysTickHandler(void);
 extern void vApplicationIdleHook(void);

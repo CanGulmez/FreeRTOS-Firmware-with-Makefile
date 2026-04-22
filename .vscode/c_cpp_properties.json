@@ -7,11 +7,11 @@
             "cStandard": "gnu17",
             "includePath": [
                 "${workspaceFolder}/src",
-                "${workspaceFolder}/driver/CMSIS/Include",
-                "${workspaceFolder}/driver/CMSIS/Device/ST/STM32F4xx/Include",
-                "${workspaceFolder}/driver/STM32F4xx_HAL_Driver/Inc",
-                "${workspaceFolder}/driver/FreeRTOS/include",
-                "${workspaceFolder}/driver/FreeRTOS/portable/GCC/ARM_CM4F"
+                "${workspaceFolder}/drivers/CMSIS/Include",
+                "${workspaceFolder}/drivers/CMSIS/Device/ST/STM32F4xx/Include",
+                "${workspaceFolder}/drivers/STM32F4xx_HAL_Driver/Inc",
+                "${workspaceFolder}/drivers/FreeRTOS/include",
+                "${workspaceFolder}/drivers/FreeRTOS/portable/GCC/ARM_CM4F"
             ],
             "defines": [
                 "STM32F4xx",

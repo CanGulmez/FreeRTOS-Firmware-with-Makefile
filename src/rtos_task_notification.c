@@ -42,25 +42,25 @@
 
 #include "main.h"
 
-void notifiedTask1(void *pvParams)
+void rtosTask16(void *pvParams)
 {
 	uint32_t isNotified = 0;
 
 	for (;;)
 	{
-		printLog("notifiedTask1() is waiting for a notification...");
+		printLog("rtosTask16() is waiting for a notification...");
 
 		/* Wait to receive a notification sent directly to this task. */
 		isNotified = ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 		if (isNotified)
 		{
-			printLog("notifiedTask1() received a notification");
+			printLog("rtosTask16() received a notification");
 		}
 	}	
 	vTaskDelete(NULL);
 }
 
-void notifiedTask2(void *pvParams)
+void rtosTask17(void *pvParams)
 {
 	BaseType_t res;
 	const TickType_t blockTime = pdMS_TO_TICKS(2000);
@@ -78,7 +78,7 @@ void notifiedTask2(void *pvParams)
 		if (res != pdPASS)
 			printKernel("couldn't send the notification!");
 		else
-			printLog("the notification is sent to notifiedTask1()");
+			printLog("the notification is sent to rtosTask16()");
 	}
 	vTaskDelete(NULL);
 }

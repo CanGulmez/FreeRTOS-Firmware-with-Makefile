@@ -47,7 +47,7 @@ static const Data_t queueData[2] = {
 	{200, eSender2}
 };
 
-void senderTask(void *pvParams)
+void rtosTask5(void *pvParams)
 {
 	BaseType_t res;
 
@@ -64,7 +64,7 @@ void senderTask(void *pvParams)
 	vTaskDelete(NULL);
 }
 
-void receiverTask(void *pvParams)
+void rtosTask6(void *pvParams)
 {
 	BaseType_t res;
 	Data_t receivedData[2];

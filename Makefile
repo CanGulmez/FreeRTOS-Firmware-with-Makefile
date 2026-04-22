@@ -20,23 +20,23 @@ AS_FLAGS			:= -x assembler-with-cpp
 
 # Include paths
 MAIN_INC			:= ./src
-CMSIS_INC		:= ./driver/CMSIS/Include 
-CMSIS_DEV_INC	:= ./driver/CMSIS/Device/ST/STM32F4xx/Include
-HAL_INC			:= ./driver/STM32F4xx_HAL_Driver/Inc
-RTOS_INC			:= ./driver/FreeRTOS/include 
-RTOS_GCC_INC	:= ./driver/FreeRTOS/portable/GCC/ARM_CM4F
+CMSIS_INC		:= ./drivers/CMSIS/Include 
+CMSIS_DEV_INC	:= ./drivers/CMSIS/Device/ST/STM32F4xx/Include
+HAL_INC			:= ./drivers/STM32F4xx_HAL_Driver/Inc
+RTOS_INC			:= ./drivers/FreeRTOS/include 
+RTOS_GCC_INC	:= ./drivers/FreeRTOS/portable/GCC/ARM_CM4F
 
 # Source files
-MAIN_SRC			:= $(wildcard src/*.c)
-HAL_SRC			:= $(wildcard ./driver/STM32F4xx_HAL_Driver/Src/*.c)
-SYSTEM_SRC		:= ./driver/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
-RTOS_SRC			:= $(wildcard ./driver/FreeRTOS/*.c) 
-RTOS_GCC_SRC	:= $(wildcard ./driver/FreeRTOS/portable/GCC/ARM_CM4F/*.c) 
-RTOS_MEM_SRC	:= $(wildcard ./driver/FreeRTOS/portable/MemMang/*.c) 
+MAIN_SRC			:= $(wildcard ./src/*.c)
+HAL_SRC			:= $(wildcard ./drivers/STM32F4xx_HAL_Driver/Src/*.c)
+SYSTEM_SRC		:= ./drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
+RTOS_SRC			:= $(wildcard ./drivers/FreeRTOS/*.c) 
+RTOS_GCC_SRC	:= $(wildcard ./drivers/FreeRTOS/portable/GCC/ARM_CM4F/*.c) 
+RTOS_MEM_SRC	:= $(wildcard ./drivers/FreeRTOS/portable/MemMang/*.c) 
 
 # Startup file and linker script 
-STARTUP_CODE	:= ./driver/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f446xx.S
-LINKER_SCRIPT	:= ./driver/STM32F446RETX_FLASH.ld
+STARTUP_CODE	:= ./drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f446xx.S
+LINKER_SCRIPT	:= ./drivers/STM32F446RETX_FLASH.ld
 
 # Sorthand and build definititions
 INCLUDES			:= -I$(MAIN_INC) -I$(CMSIS_DEV_INC) -I$(CMSIS_INC) -I$(HAL_INC) \
