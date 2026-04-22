@@ -11,10 +11,3 @@
  * The built-in tickless idle functionality is enabled by defining
  * configUSE_TICKLESS_IDLE as 1 in FreeRTOSConfig.h.
  */
-
-#include "main.h"
-
-void vApplicationIdleHook(void)
-{
-	__WFI();		/* enter into the deep sleep mode */
-}

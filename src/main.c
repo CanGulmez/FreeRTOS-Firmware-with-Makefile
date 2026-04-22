@@ -11,7 +11,7 @@ TimerHandle_t autoReloadTimer;
 TimerHandle_t oneShotTimer;
 SemaphoreHandle_t binarySem;
 SemaphoreHandle_t mutexSem;
-TaskHandle_t notifiedTask1Handle;
+TaskHandle_t notifiedTaskHandle;
 EventGroupHandle_t eventGroup;
 
 int main(void)
@@ -168,7 +168,7 @@ int main(void)
 	 */
 
 	res = xTaskCreate(rtosTask16, "RTOS Task 16", 256, NULL, 1, 
-		&notifiedTask1Handle);
+		&notifiedTaskHandle);
 	if (res != pdPASS)
 		printKernel("couldn't create the rtos task 16!");
 

@@ -59,7 +59,7 @@ typedef struct
 } Data_t;
 
 extern int sharedResource[SHARED_RESOURCE];
-extern TaskHandle_t notifiedTask1Handle;
+extern TaskHandle_t notifiedTaskHandle;
 
 extern RCC_OscInitTypeDef iosc;
 extern RCC_ClkInitTypeDef iclk;
@@ -158,4 +158,6 @@ extern void rtosTask17(void *pvParams);
 extern void SysTick_Handler(void);
 extern void EXTI0_IRQHandler(void);
 extern void xPortSysTickHandler(void);
+
 extern void vApplicationIdleHook(void);
+extern void vApplicationStackOverflowHook(TaskHandle_t xTask, const char *pcTaskName);

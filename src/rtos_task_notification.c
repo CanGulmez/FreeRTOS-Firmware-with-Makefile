@@ -74,7 +74,7 @@ void rtosTask17(void *pvParams)
 		 * Notify the other task by sending a notification directly to it.
 		 * The receiving task's notification value will be incremented.
 		 */
-		res = xTaskNotifyGive(notifiedTask1Handle);
+		res = xTaskNotifyGive(notifiedTaskHandle);
 		if (res != pdPASS)
 			printKernel("couldn't send the notification!");
 		else
