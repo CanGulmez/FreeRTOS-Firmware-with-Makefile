@@ -31,7 +31,7 @@ int main(void)
 	/* FreeRTOS Task Management */	
 
 	res = xTaskCreate(
-		rtosTask1, 			/* task prototype */
+		rtosTask1, 				/* task prototype */
 		"Simple Task 1",		/* task name */
 		256,						/* task stack depth in words */
 		NULL,						/* task parameter */

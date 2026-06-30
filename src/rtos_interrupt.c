@@ -57,6 +57,7 @@
 
 void rtosTask9(void *pvParams)
 {
+	static int i = 0;
 	BaseType_t res;
 
 	printLog("rtosTask9() started here...");
@@ -67,9 +68,7 @@ void rtosTask9(void *pvParams)
 		if (res != pdPASS)
 			printKernel("semaphore cannot be taken from rtosTask9()!");
 
-		printLog("doing the rtosTask9() stuffs...");
-
-		vTaskDelay(pdMS_TO_TICKS(2000));	/* delay in ms */
+		printLog("doing the rtosTask9() stuffs (%d)...", ++i);
 	}
 	vTaskDelete(NULL);
 }

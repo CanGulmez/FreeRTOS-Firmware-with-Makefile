@@ -29,8 +29,8 @@
 
 #define BUF_SIZE				128
 
-#define FILE					__FILE__
-#define LINE					__LINE__
+#define _FILE					__FILE__
+#define _LINE					__LINE__
 
 #define STATUS(status) 		((status == HAL_ERROR) 		? "ERROR" 	: 			\
 									 (status == HAL_BUSY) 		? "BUSY"		:			\
@@ -96,7 +96,7 @@ do {																								\
 	char buffer[BUF_SIZE];																	\
 																									\
 	snprintf(buffer, BUF_SIZE, "*** " format 	" (STATUS = %s) " 				\
-		"(%s::%d) ***\r\n", ##__VA_ARGS__, STATUS(status), FILE, LINE);		\
+		"(%s::%d) ***\r\n", ##__VA_ARGS__, STATUS(status), _FILE, _LINE);		\
 	HAL_UART_Transmit(&debugPort, (uint8_t*) buffer, strlen(buffer),			\
 		HAL_MAX_DELAY);																		\
 } while (0)
@@ -109,7 +109,7 @@ do {																								\
 	char buffer[BUF_SIZE];																	\
 																									\
 	snprintf(buffer, BUF_SIZE, "*** " format 	" (%s::%d) ***\r\n", 			\
-		##__VA_ARGS__, FILE, LINE);														\
+		##__VA_ARGS__, _FILE, _LINE);														\
 	HAL_UART_Transmit(&debugPort, (uint8_t*) buffer, strlen(buffer),			\
 		HAL_MAX_DELAY);																		\
 } while (0)
